@@ -1,0 +1,41 @@
+syntax = "v1"
+
+import "base.api"
+
+type UserInfo {
+	UserID int64  `json:"uid"`
+	Name   string `json:"name"`
+	Mobile string `json:"mobile"`
+}
+
+type (
+	LoginRequest {
+		Mobile   string `form:"mobile"`
+		Password string `form:"password"`
+	}
+	LoginResponse {
+		Base
+		Data UserInfo `json:"data"`
+	}
+	RegisterRequest {
+		Name     string `form:"name"`
+		Mobile   string `form:"mobile"`
+		Password string `form:"password"`
+	}
+	RegisterResponse {
+		Base
+		Data UserInfo `json:"data"`
+	}
+)
+
+@server (
+	prefix: /user
+)
+service User {
+	@handler Login
+	post /login (LoginRequest) returns (LoginResponse)
+
+	@handler Register
+	post /register (RegisterRequest) returns (RegisterResponse)
+}
+

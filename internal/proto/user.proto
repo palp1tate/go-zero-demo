@@ -1,0 +1,32 @@
+syntax = "proto3";
+option go_package = "./pb";
+
+message UserInfo {
+  int64 UserID = 1;
+  string Name = 2;
+  string Mobile = 3;
+}
+
+message LoginRequest {
+  string Mobile = 1;
+  string Password = 2;
+}
+
+message LoginResponse {
+  UserInfo UserInfo = 1;
+}
+
+message RegisterRequest {
+  string Name = 1;
+  string Mobile = 2;
+  string Password = 3;
+}
+
+message RegisterResponse {
+  UserInfo UserInfo = 1;
+}
+
+service UserSrv {
+  rpc Login(LoginRequest) returns(LoginResponse);
+  rpc Register(RegisterRequest) returns(RegisterResponse);
+}
